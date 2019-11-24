@@ -102,4 +102,31 @@ export class AppComponent {
   //     console.log(arr.join(""));
   //   }
   // }
+
+  // Google code interview example - take an array and add one to it
+  // for example [1,2,3,4] -> [1,2,3,5]
+  // Also: [1,2,9,9] -> [1,3,0,0]
+  // And: [9,9,9] -> [1,0,0,0]
+  // do this without converting the array to a string, then a number,
+  // must keep this in an array format
+  public static addOne(arr: number[]): number[] {
+    let result: Array<number> = new Array<number>(arr.length);
+    let carry = 1;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      let total = arr[i] + carry;
+      if (total === 10) carry = 1;
+      else carry = 0;
+      // if the sum is 10, we should have zero in this position of the result
+      // otherwise, we want the actual sum
+      result[i] = total % 10;
+    }
+    // in the case where carry is still 1, this is the case where all the numbers where 9
+    // so, we need a new array, with the first position = 1, and the rest zero
+    if (carry === 1) {
+      result = new Array<number>(arr.length + 1);
+      result.fill(0);
+      result[0] = 1;
+    }
+    return result;
+  }
 }

@@ -128,4 +128,13 @@ describe("AppComponent", () => {
     expect(console.log).toHaveBeenCalledWith("## ");
     expect(console.log).toHaveBeenCalledWith("###");
   });
+  it("Should add one to and return [1, 2, 3, 5]", () => {
+    expect(AppComponent.addOne([1, 2, 3, 4])).toEqual([1, 2, 3, 5]);
+  });
+  it("Should add one to and return [1, 3, 0, 0]", () => {
+    expect(AppComponent.addOne([1, 2, 9, 9])).toEqual([1, 3, 0, 0]);
+  });
+  it("Should add one to and return [1, 0, 0, 0]", () => {
+    expect(AppComponent.addOne([9, 9, 9])).toEqual([1, 0, 0, 0]);
+  });
 });
