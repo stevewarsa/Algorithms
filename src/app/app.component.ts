@@ -53,15 +53,15 @@ export class AppComponent {
   //   }
   //   return true;
   // }
-  // private static createCharMap(str: string): any {
-  //   let charMap = {};
-  //   str
-  //     .toLowerCase()
-  //     .replace(/[^\w]/g, "") // replace every character that is not a letter or number
-  //     .split("")
-  //     .forEach(chr => (charMap[chr] ? charMap[chr]++ : (charMap[chr] = 1)));
-  //   return charMap;
-  // }
+  private static createCharMap(str: string): any {
+    let charMap = {};
+    str
+      .toLowerCase()
+      .replace(/[^\w]/g, "") // replace every character that is not a letter or number
+      .split("")
+      .forEach(chr => (charMap[chr] ? charMap[chr]++ : (charMap[chr] = 1)));
+    return charMap;
+  }
 
   public static capitalize(str: string): string {
     let newSentence = "";
@@ -108,7 +108,7 @@ export class AppComponent {
   // Also: [1,2,9,9] -> [1,3,0,0]
   // And: [9,9,9] -> [1,0,0,0]
   // do this without converting the array to a string, then a number,
-  // must keep this in an array format
+  // must keep this in an array format and do the math that way
   public static addOne(arr: number[]): number[] {
     let result: Array<number> = new Array<number>(arr.length);
     let carry = 1;
@@ -128,5 +128,136 @@ export class AppComponent {
       result[0] = 1;
     }
     return result;
+  }
+  // --- Directions
+  // Write a function that accepts a positive number N.
+  // The function should console log a pyramid shape
+  // with N levels using the # character.  Make sure the
+  // pyramid has spaces on both the left *and* right hand sides
+  // --- Examples
+  //   pyramid(1)
+  //       '#'
+  //   pyramid(2)
+  //       ' # '
+  //       '###'
+  //   pyramid(3)
+  //       '  #  '
+  //       ' ### '
+  //       '#####'
+  //   pyramid(4)
+  //       '   #   '
+  //       '  ###  '
+  //       ' ##### '
+  //       '#######'
+  //   pyramid(5)
+  //       '    #    '
+  //       '   ###   '
+  //       '  #####  '
+  //       ' ####### '
+  //       '#########'
+  public static pyramid(n: number) {
+    let pyramidRows: string[] = [];
+    let addonValue = 1;
+    for (let i = 0; i < n; i++) {
+      pyramidRows.push("#".repeat(i + addonValue));
+      addonValue += 1;
+    }
+    pyramidRows.forEach(row =>
+      console.log(
+        this.padStringRightLeft(row, pyramidRows[pyramidRows.length - 1].length)
+      )
+    );
+  }
+  private static padStringRightLeft(str: string, toLength: number): string {
+    let missingNumCharsEachSide = (toLength - str.length) / 2;
+    return (
+      " ".repeat(missingNumCharsEachSide) +
+      str +
+      " ".repeat(missingNumCharsEachSide)
+    );
+  }
+
+  public static vowels(str: string): number {
+    // BEST - regex solution
+    let matches = str.match(/[aeiou]/gi);
+    return matches ? matches.length : 0;
+
+    // iterative solution
+    // let count = 0;
+    // for (let chr of str.toUpperCase()) {
+    //   if ("AEIOU".includes(chr)) {
+    //     count++;
+    //   }
+    // }
+    // return count;
+
+    // my original solution
+    // let vowelMap = this.createCharMap(str);
+    // let vowelKeysOnly = Object.keys(vowelMap).filter(chr =>
+    //   "AEIOU".includes(chr.toUpperCase())
+    // );
+    // let vowelCount = 0;
+    // for (let vowel of vowelKeysOnly) {
+    //   vowelCount += vowelMap[vowel];
+    // }
+    // return vowelCount;
+  }
+
+  // --- Directions
+  // Write a function that accepts an integer N
+  // and returns a NxN spiral matrix.
+  // --- Examples
+  //   matrix(2)
+  //     [[1, 2],
+  //     [4, 3]]
+  //   matrix(3)
+  //     [[1, 2, 3],
+  //     [8, 9, 4],
+  //     [7, 6, 5]]
+  //  matrix(4)
+  //     [[1,   2,  3, 4],
+  //     [12, 13, 14, 5],
+  //     [11, 16, 15, 6],
+  //     [10,  9,  8, 7]]
+  public static matrix(n: number): any[] {
+    const results = [];
+    for (let i = 0; i < n; i++) {
+      results.push([]);
+    }
+    let counter = 1;
+    let startColumn = 0;
+    let endColumn = n - 1;
+    let startRow = 0;
+    let endRow = n - 1;
+    while (startColumn <= endColumn && startRow <= endRow) {
+      // top row
+      for (let i = startColumn; i <= endColumn; i++) {
+        results[startRow][i] = counter;
+        counter++;
+      }
+      startRow++;
+
+      // right column
+      for (let i = startRow; i <= endRow; i++) {
+        results[i][endColumn] = counter;
+        counter++;
+      }
+      endColumn--;
+
+      // bottom row
+      for (let i = endColumn; i >= startColumn; i--) {
+        results[endRow][i] = counter;
+        counter++;
+      }
+      endRow--;
+
+      // start column
+      for (let i = endRow; i >= startRow; i--) {
+        results[i][startColumn] = counter;
+        counter++;
+      }
+      startColumn++;
+    }
+    return results;
   }
 }

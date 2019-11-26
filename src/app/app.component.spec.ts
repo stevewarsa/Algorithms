@@ -7,11 +7,13 @@ describe("AppComponent", () => {
     TestBed.configureTestingModule({
       declarations: [AppComponent]
     }).compileComponents();
+    // this allows me to test what is being written to the console
     spy = spyOn(console, "log");
   }));
 
   afterEach(() => {
     if (spy) {
+      // after each test reset what was written to the console
       spy.calls.reset();
     }
   });
@@ -136,5 +138,75 @@ describe("AppComponent", () => {
   });
   it("Should add one to and return [1, 0, 0, 0]", () => {
     expect(AppComponent.addOne([9, 9, 9])).toEqual([1, 0, 0, 0]);
+  });
+  it("pyramid is a function", () => {
+    expect(typeof AppComponent.pyramid).toEqual("function");
+  });
+
+  it("prints a pryamid for n = 2", () => {
+    AppComponent.pyramid(2);
+    expect(console.log).toHaveBeenCalledWith(" # ");
+    expect(console.log).toHaveBeenCalledWith("###");
+  });
+
+  it("prints a pryamid for n = 3", () => {
+    AppComponent.pyramid(3);
+    expect(console.log).toHaveBeenCalledWith("  #  ");
+    expect(console.log).toHaveBeenCalledWith(" ### ");
+    expect(console.log).toHaveBeenCalledWith("#####");
+  });
+
+  it("prints a pryamid for n = 4", () => {
+    AppComponent.pyramid(4);
+    expect(console.log).toHaveBeenCalledWith("   #   ");
+    expect(console.log).toHaveBeenCalledWith("  ###  ");
+    expect(console.log).toHaveBeenCalledWith(" ##### ");
+    expect(console.log).toHaveBeenCalledWith("#######");
+  });
+  it("Vowels is a function", () => {
+    expect(typeof AppComponent.vowels).toEqual("function");
+  });
+
+  it("returns the number of vowels used", () => {
+    expect(AppComponent.vowels("aeiou")).toEqual(5);
+  });
+
+  it("returns the number of vowels used when they are capitalized", () => {
+    expect(AppComponent.vowels("AEIOU")).toEqual(5);
+  });
+
+  it("returns the number of vowels used", () => {
+    expect(AppComponent.vowels("abcdefghijklmnopqrstuvwxyz")).toEqual(5);
+  });
+
+  it("returns the number of vowels used", () => {
+    expect(AppComponent.vowels("bcdfghjkl")).toEqual(0);
+  });
+  it("matrix is a function", () => {
+    expect(typeof AppComponent.matrix).toEqual("function");
+  });
+
+  it("matrix produces a 2x2 array", () => {
+    const m = AppComponent.matrix(2);
+    expect(m.length).toEqual(2);
+    expect(m[0]).toEqual([1, 2]);
+    expect(m[1]).toEqual([4, 3]);
+  });
+
+  it("matrix produces a 3x3 array", () => {
+    const m = AppComponent.matrix(3);
+    expect(m.length).toEqual(3);
+    expect(m[0]).toEqual([1, 2, 3]);
+    expect(m[1]).toEqual([8, 9, 4]);
+    expect(m[2]).toEqual([7, 6, 5]);
+  });
+
+  it("matrix produces a 4x4 array", () => {
+    const m = AppComponent.matrix(4);
+    expect(m.length).toEqual(4);
+    expect(m[0]).toEqual([1, 2, 3, 4]);
+    expect(m[1]).toEqual([12, 13, 14, 5]);
+    expect(m[2]).toEqual([11, 16, 15, 6]);
+    expect(m[3]).toEqual([10, 9, 8, 7]);
   });
 });
