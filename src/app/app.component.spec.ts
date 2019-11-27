@@ -209,4 +209,35 @@ describe("AppComponent", () => {
     expect(m[2]).toEqual([11, 16, 15, 6]);
     expect(m[3]).toEqual([10, 9, 8, 7]);
   });
+  it("Fib function is defined", () => {
+    expect(typeof AppComponent.fib).toEqual("function");
+  });
+
+  it("calculates correct fib value for 1", () => {
+    expect(AppComponent.fib(1)).toEqual(1);
+  });
+
+  it("calculates correct fib value for 2", () => {
+    expect(AppComponent.fib(2)).toEqual(1);
+  });
+
+  it("calculates correct fib value for 3", () => {
+    expect(AppComponent.fib(3)).toEqual(2);
+  });
+
+  it("calculates correct fib value for 4", () => {
+    expect(AppComponent.fib(4)).toEqual(3);
+  });
+
+  it("calculates correct fib value for 39", () => {
+    expect(AppComponent.fib(39)).toEqual(63245986);
+  });
+
+  it("calculates correct fib value for 50", () => {
+    expect(AppComponent.fib(50)).toEqual(12586269025);
+  });
+
+  it("calculates correct fib value for 100", () => {
+    expect(AppComponent.fib(100)).toEqual(354224848179262000000);
+  });
 });

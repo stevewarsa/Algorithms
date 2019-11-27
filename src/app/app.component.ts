@@ -219,6 +219,8 @@ export class AppComponent {
   //     [12, 13, 14, 5],
   //     [11, 16, 15, 6],
   //     [10,  9,  8, 7]]
+  //
+  // I didn't even try this one on my own...
   public static matrix(n: number): any[] {
     const results = [];
     for (let i = 0; i < n; i++) {
@@ -260,4 +262,39 @@ export class AppComponent {
     }
     return results;
   }
+  // --- Directions
+  // Print out the n-th entry in the fibonacci series.
+  // The fibonacci series is an ordering of numbers where
+  // each number is the sum of the preceeding two.
+  // For example, the sequence
+  //  [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+  // forms the first ten entries of the fibonacci series.
+  // Example:
+  //   fib(4) === 3
+
+  // now, this is what the instructor showed
+  // public static fib(n: number): number {
+  //   if (n < 2) {
+  //     return n;
+  //   }
+  //   return this.fib(n - 1) + this.fib(n - 2);
+  // }
+
+  // my try at a recursive solution (with no help)
+  public static fib(n: number, result: number[] = [0, 1]): number {
+    if (result.length - 1 < n) {
+      result.push(result[result.length - 1] + result[result.length - 2]);
+      return this.fib(n, result);
+    }
+    return result[result.length - 1];
+  }
+  // Here was my solution (without any help)
+  // public static fib(n: number): number {
+  //   // start with first 2 numbers populated
+  //   let arr: number[] = [0, 1];
+  //   for (let i = 2; i <= n; i++) {
+  //     arr.push(arr[i - 1] + arr[i - 2]);
+  //   }
+  //   return arr[arr.length - 1];
+  // }
 }
