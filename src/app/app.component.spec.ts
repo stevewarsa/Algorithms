@@ -2,6 +2,7 @@ import { TestBed, async } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { Queue } from "./queue";
 import { Stack } from "./stack";
+import { QueueStack } from "./queue-stack";
 
 describe("AppComponent", () => {
   let spy = null;
@@ -337,14 +338,14 @@ describe("AppComponent", () => {
     expect(s.pop()).toEqual(1);
   });
   it("can add elements to a queue", () => {
-    const q = new Queue();
+    const q = new QueueStack();
     expect(() => {
       q.add(1);
     }).not.toThrow();
   });
 
   it("can remove elements from a queue", () => {
-    const q = new Queue();
+    const q = new QueueStack();
     expect(() => {
       q.add(1);
       q.remove();
@@ -352,7 +353,7 @@ describe("AppComponent", () => {
   });
 
   it("Order of elements is maintained", () => {
-    const q = new Queue();
+    const q = new QueueStack();
     q.add(1);
     q.add(2);
     q.add(3);
@@ -363,12 +364,16 @@ describe("AppComponent", () => {
   });
 
   it("peek returns, but does not remove, the first value", () => {
-    const q = new Queue();
+    const q = new QueueStack();
     q.add(1);
     q.add(2);
-    expect(q.peek()).toEqual(1);
-    expect(q.peek()).toEqual(1);
-    expect(q.remove()).toEqual(1);
-    expect(q.remove()).toEqual(2);
+    let peek1 = q.peek();
+    expect(peek1).toEqual(1);
+    let peek2 = q.peek();
+    expect(peek2).toEqual(1);
+    let remove1 = q.remove();
+    expect(remove1).toEqual(1);
+    let remove2 = q.remove();
+    expect(remove2).toEqual(2);
   });
 });
