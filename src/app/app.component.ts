@@ -1,3 +1,4 @@
+import { Queue } from "./queue";
 import { Component } from "@angular/core";
 
 @Component({
@@ -279,6 +280,9 @@ export class AppComponent {
   //   }
   //   return this.fib(n - 1) + this.fib(n - 2);
   // }
+  // Note - this solution needed to be memoized in
+  // order to improve from exponential runtime
+  // complexity to linear
 
   // my try at a recursive solution (with no help)
   public static fib(n: number, result: number[] = [0, 1]): number {
@@ -297,4 +301,41 @@ export class AppComponent {
   //   }
   //   return arr[arr.length - 1];
   // }
+
+  // --- Directions
+  // 1) Complete the task in weave/queue.js
+  // 2) Implement the 'weave' function.  Weave
+  // receives two queues as arguments and combines the
+  // contents of each into a new, third queue.
+  // The third queue should contain the *alterating* content
+  // of the two queues.  The function should handle
+  // queues of different lengths without inserting
+  // 'undefined' into the new one.
+  // *Do not* access the array inside of any queue, only
+  // use the 'add', 'remove', and 'peek' functions.
+  // --- Example
+  //    const queueOne = new Queue();
+  //    queueOne.add(1);
+  //    queueOne.add(2);
+  //    const queueTwo = new Queue();
+  //    queueTwo.add('Hi');
+  //    queueTwo.add('There');
+  //    const q = weave(queueOne, queueTwo);
+  //    q.remove() // 1
+  //    q.remove() // 'Hi'
+  //    q.remove() // 2
+  //    q.remove() // 'There'
+  // Note - the following is my implementation (without looking at the instructor's).  It passes all the tests.
+  public static weave(sourceOne: Queue, sourceTwo: Queue): Queue {
+    let resultQueue: Queue = new Queue();
+    while (sourceOne.peek() || sourceTwo.peek()) {
+      if (sourceOne.peek()) {
+        resultQueue.add(sourceOne.remove());
+      }
+      if (sourceTwo.peek()) {
+        resultQueue.add(sourceTwo.remove());
+      }
+    }
+    return resultQueue;
+  }
 }

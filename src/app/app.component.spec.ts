@@ -1,5 +1,7 @@
 import { TestBed, async } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
+import { Queue } from "./queue";
+import { Stack } from "./stack";
 
 describe("AppComponent", () => {
   let spy = null;
@@ -239,5 +241,134 @@ describe("AppComponent", () => {
 
   it("calculates correct fib value for 100", () => {
     expect(AppComponent.fib(100)).toEqual(354224848179262000000);
+  });
+
+  it("can add elements to a queue", () => {
+    const q = new Queue();
+    expect(() => {
+      q.add(1);
+    }).not.toThrow();
+  });
+
+  it("can remove elements from a queue", () => {
+    const q = new Queue();
+    expect(() => {
+      q.add(1);
+      q.remove();
+    }).not.toThrow();
+  });
+
+  it("Order of elements is maintained", () => {
+    const q = new Queue();
+    q.add(1);
+    q.add(2);
+    q.add(3);
+    expect(q.remove()).toEqual(1);
+    expect(q.remove()).toEqual(2);
+    expect(q.remove()).toEqual(3);
+    expect(q.remove()).toEqual(undefined);
+  });
+  it("peek returns, but does not remove, the first value", () => {
+    const q = new Queue();
+    q.add(1);
+    q.add(2);
+    expect(q.peek()).toEqual(1);
+    expect(q.peek()).toEqual(1);
+    expect(q.remove()).toEqual(1);
+    expect(q.remove()).toEqual(2);
+  });
+
+  it("weave is a function", () => {
+    expect(typeof AppComponent.weave).toEqual("function");
+  });
+
+  it("weave can combine two queues", () => {
+    const one = new Queue();
+    one.add(1);
+    one.add(2);
+    one.add(3);
+    one.add(4);
+    const two = new Queue();
+    two.add("one");
+    two.add("two");
+    two.add("three");
+    two.add("four");
+
+    const result = AppComponent.weave(one, two);
+    expect(result.remove()).toEqual(1);
+    expect(result.remove()).toEqual("one");
+    expect(result.remove()).toEqual(2);
+    expect(result.remove()).toEqual("two");
+    expect(result.remove()).toEqual(3);
+    expect(result.remove()).toEqual("three");
+    expect(result.remove()).toEqual(4);
+    expect(result.remove()).toEqual("four");
+    expect(result.remove()).toBeUndefined();
+  });
+
+  it("stack can add and remove items", () => {
+    const s = new Stack();
+    s.push(1);
+    expect(s.pop()).toEqual(1);
+    s.push(2);
+    expect(s.pop()).toEqual(2);
+  });
+
+  it("stack can follows first in, last out", () => {
+    const s = new Stack();
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    expect(s.pop()).toEqual(3);
+    expect(s.pop()).toEqual(2);
+    expect(s.pop()).toEqual(1);
+  });
+
+  it("peek returns the first element but doesnt pop it", () => {
+    const s = new Stack();
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    expect(s.peek()).toEqual(3);
+    expect(s.pop()).toEqual(3);
+    expect(s.peek()).toEqual(2);
+    expect(s.pop()).toEqual(2);
+    expect(s.peek()).toEqual(1);
+    expect(s.pop()).toEqual(1);
+  });
+  it("can add elements to a queue", () => {
+    const q = new Queue();
+    expect(() => {
+      q.add(1);
+    }).not.toThrow();
+  });
+
+  it("can remove elements from a queue", () => {
+    const q = new Queue();
+    expect(() => {
+      q.add(1);
+      q.remove();
+    }).not.toThrow();
+  });
+
+  it("Order of elements is maintained", () => {
+    const q = new Queue();
+    q.add(1);
+    q.add(2);
+    q.add(3);
+    expect(q.remove()).toEqual(1);
+    expect(q.remove()).toEqual(2);
+    expect(q.remove()).toEqual(3);
+    expect(q.remove()).toEqual(undefined);
+  });
+
+  it("peek returns, but does not remove, the first value", () => {
+    const q = new Queue();
+    q.add(1);
+    q.add(2);
+    expect(q.peek()).toEqual(1);
+    expect(q.peek()).toEqual(1);
+    expect(q.remove()).toEqual(1);
+    expect(q.remove()).toEqual(2);
   });
 });
