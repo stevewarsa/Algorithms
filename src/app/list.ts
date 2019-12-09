@@ -40,7 +40,13 @@ export class List {
     this.head = null;
   }
 
-  public removeFirst() {}
+  public removeFirst() {
+    // SW[Mon 09/12/19 04:52:21] First, re-assign head to next node
+    // this effectively removes the first element
+    if (this.head) {
+      this.head = this.head.next;
+    }
+  }
 
   public removeLast() {}
 

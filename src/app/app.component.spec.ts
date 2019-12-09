@@ -453,7 +453,7 @@ describe("Clear", () => {
   });
 });
 
-xdescribe("RemoveFirst", () => {
+describe("RemoveFirst", () => {
   it("removes the first node when the list has a size of one", () => {
     const l = new List();
     l.insertFirst("a");
