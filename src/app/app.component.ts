@@ -9,6 +9,19 @@ import { Component } from "@angular/core";
 export class AppComponent {
   title = "test-project";
 
+  // --- Directions
+  // Write a program that console logs the numbers
+  // from 1 to n. But for multiples of three print
+  // “fizz” instead of the number and for the multiples
+  // of five print “buzz”. For numbers which are multiples
+  // of both three and five print “fizzbuzz”.
+  // --- Example
+  //   fizzBuzz(5);
+  //   1
+  //   2
+  //   fizz
+  //   4
+  //   buzz
   public static fizzBizz(num: number): string {
     if (num % 15 === 0) {
       return "FizzBizz";
@@ -21,6 +34,15 @@ export class AppComponent {
     }
   }
 
+  // --- Directions
+  // Given an array and chunk size, divide the array into many subarrays
+  // where each subarray is of length size
+  // --- Examples
+  // chunk([1, 2, 3, 4], 2) --> [[ 1, 2], [3, 4]]
+  // chunk([1, 2, 3, 4, 5], 2) --> [[ 1, 2], [3, 4], [5]]
+  // chunk([1, 2, 3, 4, 5, 6, 7, 8], 3) --> [[ 1, 2, 3], [4, 5, 6], [7, 8]]
+  // chunk([1, 2, 3, 4, 5], 4) --> [[ 1, 2, 3, 4], [5]]
+  // chunk([1, 2, 3, 4, 5], 10) --> [[ 1, 2, 3, 4, 5]]
   public static chunk(array: any[], size: number): any[] {
     const chunked = [];
     let index = 0;
@@ -30,17 +52,38 @@ export class AppComponent {
     }
     return chunked;
   }
+
+  // --- Directions
+  // Check to see if two provided strings are anagrams of eachother.
+  // One string is an anagram of another if it uses the same characters
+  // in the same quantity. Only consider characters, not spaces
+  // or punctuation.  Consider capital letters to be the same as lower case
+  // --- Examples
+  //   anagrams('rail safety', 'fairy tales') --> True
+  //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
+  //   anagrams('Hi there', 'Bye there') --> False
   public static anagrams(stringA: string, stringB: string): boolean {
     return this.cleanup(stringA) === this.cleanup(stringB);
   }
+
   private static cleanup(str: string): string {
+    // SW[Sat 14/12/19 06:31:02] Note - the following regex "[^\w]" looks for characters that are NOT "word characters" (not letter, number or underscore) and replaces them with empty string
+    // Additionally, it is possible to express the 'NOT "word characters"' test with the negation of \w, which is \W
+    // return str
+    //   .replace(/[^\w]/g, "")
+    //   .toLowerCase()
+    //   .split("")
+    //   .sort()
+    //   .join("");
     return str
-      .replace(/[^\w]/g, "")
+      .replace(/[\W]/g, "")
       .toLowerCase()
       .split("")
       .sort()
       .join("");
   }
+
+  // SW[Sat 14/12/19 06:36:10] Alternate implementation
   // public static anagrams(stringA: string, stringB: string): boolean {
   //   let stringAChrs = AppComponent.createCharMap(stringA);
   //   let stringBChrs = AppComponent.createCharMap(stringB);
@@ -64,6 +107,13 @@ export class AppComponent {
     return charMap;
   }
 
+  // Write a function that accepts a string.  The function should
+  // capitalize the first letter of each word in the string then
+  // return the capitalized string.
+  // --- Examples
+  //   capitalize('a short sentence') --> 'A Short Sentence'
+  //   capitalize('a lazy fox') --> 'A Lazy Fox'
+  //   capitalize('look, it is working!') --> 'Look, It Is Working!'
   public static capitalize(str: string): string {
     let newSentence = "";
     for (let word of str.split(" ")) {
@@ -72,6 +122,24 @@ export class AppComponent {
     return newSentence.trim();
   }
 
+  // --- Directions
+  // Write a function that accepts a positive number N.
+  // The function should console log a step shape
+  // with N levels using the # character.  Make sure the
+  // step has spaces on the right hand side!
+  // --- Examples
+  //   steps(2)
+  //       '# '
+  //       '##'
+  //   steps(3)
+  //       '#  '
+  //       '## '
+  //       '###'
+  //   steps(4)
+  //       '#   '
+  //       '##  '
+  //       '### '
+  //       '####'
   // alternative 'recursive' solution (basically copied from instructor)
   public static steps(num: number, row: number = 0, stair: string = "") {
     if (num === row) {
@@ -178,6 +246,14 @@ export class AppComponent {
     );
   }
 
+  // --- Directions
+  // Write a function that returns the number of vowels
+  // used in a string.  Vowels are the characters 'a', 'e'
+  // 'i', 'o', and 'u'.
+  // --- Examples
+  //   vowels('Hi There!') --> 3
+  //   vowels('Why do you ask?') --> 4
+  //   vowels('Why?') --> 0
   public static vowels(str: string): number {
     // BEST - regex solution
     let matches = str.match(/[aeiou]/gi);

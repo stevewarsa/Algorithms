@@ -48,7 +48,23 @@ export class List {
     }
   }
 
-  public removeLast() {}
+  public removeLast() {
+    if (!this.head) {
+      return;
+    }
+    if (!this.head.next) {
+      // SW[Fri 13/12/19 05:37:59] this is the last node!
+      this.head = null;
+      return;
+    }
+    let previous = this.head;
+    let node = this.head.next;
+    while (node.next) {
+      previous = node;
+      node = node.next;
+    }
+    previous.next = null;
+  }
 
   public insertLast(val: any) {}
 

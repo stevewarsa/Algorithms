@@ -476,7 +476,7 @@ describe("RemoveFirst", () => {
   });
 });
 
-xdescribe("RemoveLast", () => {
+describe("RemoveLast", () => {
   it("RemoveLast removes the last node when list is empty", () => {
     const l = new List();
     expect(() => {
